@@ -1,0 +1,38 @@
+<style>
+    span {
+    color: red;
+    font-size: 1.5em;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+}
+</style>
+<script>
+    // Get all delete buttons
+    $(document).ready(function() {
+    $('.delete-btn').click(function() {
+    var id = $(this).attr('id');
+    window.location.href = '/delete/' + id;
+});
+});
+  </script>
+
+<div class="container" style="width: 800px;">
+    <div class="card-deck" style=" display: flex; justify-content: center; flex-wrap: wrap; width: 900px;">
+      <!-- Product card 1 -->
+      {{range .products}}
+      <div class="card {{ .ID }}" style="min-width: 250px; max-width: 250px; margin-top: 30px;">
+        <span class="delete-btn" id="{{ .ID }}">X</span>
+        <img class="card-img-top" src="{{ .Image }}" alt="Product 2">
+        <div class="card-body">
+          <h5 class="card-title">{{ .Name }}</h5>
+          <p class="card-text">{{ .Description }}</p>
+          <a href="#" class="btn btn-primary">Price: {{ .Price }}$</a>
+          </div>
+          </div>
+          {{end}}
+        </div>
+    </div>
+
+    <br><br>    <br><br>

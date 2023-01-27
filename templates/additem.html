@@ -1,0 +1,33 @@
+{{ template "header2.html" .}}
+<br><br>
+<div class="container" style="width: 800px;">
+    <div class="card-deck" style=" display: flex; justify-content: center;">
+        <div class="card text-white  mb-3" style="max-width: 18rem; background-color: rgb(82, 124, 238);">
+            <div class="card-header">{{.pr}}</div>
+            <div class="card-body">
+              <form action="/submit" method="POST">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                  <label for="image">Image</label>
+                  <input type="text" class="form-control" name="image" id="image" placeholder="Enter image URL">
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" class="form-control" name="price" id="price" placeholder="Enter price">
+                </div>
+                <button type="submit" class="btn">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br> 
+
+      {{ template "footer.html" .}}

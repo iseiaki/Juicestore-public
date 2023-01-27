@@ -1,0 +1,16 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+<body>
+{{if .success}}
+    <div class="alert alert-success">{{ .success }}</div>
+{{end}}
+    {{ template "card.html" .}}
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}
+
+</body>
+</html>  
