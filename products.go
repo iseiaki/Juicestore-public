@@ -17,7 +17,7 @@ type Product struct {
 
 func init() {
 	var err error
-	db, err = gorm.Open("mysql", "setup the connection")
+	db, err = gorm.Open("mysql", "root:password@tcp(server:port)/products?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic("failed to connect database")
 	}

@@ -10,7 +10,9 @@ func main() {
     router.LoadHTMLGlob("templates/*")
     router.GET("/", mainpage)
     router.POST("/submit", additempost)
-    router.GET("/delete/:id",deleteProduct)
+    router.DELETE("/delete/:id",deleteProduct)
+    router.GET("/edititems", edititem)
+    router.POST("/edititem/:id/:name/:description/:price", updateitem)
     router.GET("/additem", additem)
     router.Run()
 }

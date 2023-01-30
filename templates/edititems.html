@@ -1,0 +1,88 @@
+{{ template "header.html" .}}
+<script>
+    
+    // Get all delete buttons
+    $(document).ready(function() {
+        $('.btn-warning').click(function() {
+      // get the product ID
+      var id = $(this).attr('id');
+      
+      // get the current values of the product
+      var name = $('#name-' + id).text();
+      var description = $('#description-' + id).text();
+      var priceWithDollar = $('#price-' + id).text();
+      var price = parseInt(priceWithDollar.replace('$', ''));
+      var image = $('#image-'+id).attr('src');
+      
+      // turn text fields into input fields with current values
+      $('#name-' + id).html('<input type="text" class="form-control" id="name-input-' + id + '" value="' + name + '">');
+      $('#description-' + id).html('<input type="text"  class="form-control" id="description-input-' + id + '" value="' + description + '">');
+      $('#price-' + id).html('<input type="number" class="form-control" id="price-input-' + id + '" value="' + price + '">');
+      
+      // change the edit button text to "Save"
+      $(this).text('Save');
+      
+      // handle the save button click
+      $(this).unbind().click(function() {
+        // gather the updated values
+        var updatedId = $('#id-input-' + id).val();
+        var updatedName = $('#name-input-' + id).val();
+        var updatedDescription = $('#description-input-' + id).val();
+        var updatedPrice = $('#price-input-' + id).val();
+        
+        // send a post request to the server with the updated values
+        $.post('/edititem/' + id + '/' + updatedName + '/' + updatedDescription + '/' + updatedPrice, function(data) {
+            window.location.href = '/edititems';
+        });
+      });
+    });
+        $('.btn-danger').click(function() {
+            var id = $(this).attr('id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete/' + id,
+                success: function(response) {
+                  window.location.href = '/edititems';
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            });
+        });
+    });
+  </script>
+  <style>
+  .container {
+    margin-top: 3%;
+  }
+
+  </style>
+<div class="container">
+    <h2>Products</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{range .products}}
+        <tr>
+          <td id="id-{{ .ID }}">{{ .ID }}</td>
+          <td id="name-{{ .ID }}">{{ .Name }}</td>
+          <td id="description-{{ .ID }}">{{ .Description }}</td>
+          <td id="price-{{ .ID }}">{{ .Price }}$</td>
+          <td id="td-{{.ID}}"><img id="image-{{.ID}}" src="{{ .Image }}" width="50px"></td>
+          <td><button class="btn btn-warning" id="{{ .ID }}">Edit</button> <button class="btn btn-danger" id="{{ .ID }}">Delete</button></td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+  <br><br><br><br>
+  {{ template "footer.html" .}}
